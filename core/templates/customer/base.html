@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block head %}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 bg-dark">
+            <div class="mt-0 text-center text-white">
+                <h3 class="mt-2 mb-2">CUSTOMER DASHBOARD</h3>
+                <hr>
+                <img src="{% if request.user.customer.avatar %}{{ request.user.customer.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                    alt="" class="rounded-circle mb-2" width="100" height="100">
+                <h4>{{ request.user.get_full_name }}</h4>
+                <p class="text-secondary">{{ request.user.email }}</p>
+
+            </div>
+            <div class="list-group bg-dark mt-5 mb-5">
+                <a href="{% url 'customer:dashboard' %}" class="text-white">Dashboard
+                </a>
+                <hr>
+                <a href="{% url 'customer:profile' %}" class="text-white">update Information
+                </a>
+                <hr>
+                <a href="{% url 'customer:create_job' %}" class="text-white">Create
+                    a Job
+                </a>
+                <hr>
+                <a href="{% url 'customer:current_jobs' %}" class="text-white">My
+                    Jobs</a>
+              
+                
+                <hr>
+                <a href="{% url 'customer:payment_method' %}" class="text-white">Payment
+                    Method</a>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            {% block main %}
+            
+            {% endblock %}
+        </div>
+
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/f150a4a2e7.js" crossorigin="anonymous"></script>
+{% endblock %}

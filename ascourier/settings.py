@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'qvyc)v2xpqz8)1=dkf2i)if*q7ad53gxswafwm+n7k(5_*9zvl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
     'core.apps.CoreConfig',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.ProfileMiddlware',
 ]
 
 ROOT_URLCONF = 'ascourier.urls'
@@ -127,6 +130,8 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/sign-in/'
 LOGIN_REDIRECT_URL = '/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
@@ -147,3 +152,31 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'raselahmed4star@gmail.com'
 EMAIL_HOST_PASSWORD = '09638231930'
 DEFAULT_FROM_EMAIL = 'As Courier <no-reply@ascourier.localhost>'
+
+FIREBASE_ADMIN_CREDENTIAL = os.path.join(BASE_DIR, "ascourier-81b1f-firebase-adminsdk-oahbt-25fc59c054.json")
+
+STRIPE_API_PUBLIC_KEY = "pk_test_51IOP4ZHKS9pvoGJ9ed4eg49v4CleQPOlE5oOX6fYXvcL14hz4taSI24SIfsSNoqDSUGWbckFmh7n2KOMA7JnRvUf009aV9JA3c"
+STRIPE_API_SECRET_KEY = "sk_test_51IOP4ZHKS9pvoGJ96R9TALAYJ8ynm60DZlqGkoQK44oLql05F4Yd2zzFXksuSWN2Km1IbpmSFBAbi0cPTWXNKJy900mDmSBuXq"
+GOOGLE_MAP_API_KEY = "AIzaSyBRwPydLkK60QdolCVOY6D90RPDhz5FTx4"
+
+
+PAYPAL_MODE = "sandbox"
+PAYPAL_CLIENT_ID = "AWa2x5aDpSLGggSHAVvOSa50TEn57uPkgmqzqfpEMsBOBRAjsAGxc6qG962mRtLoS1-2SW2LsLF1l0lb"
+PAYPAL_CLIENT_SECRET = "EEQ1zXsbTRHiyiVpYwcVFrDKT3Go-aozZTFgsIXXCnKdlqfMKPqiCY9YXpLf27ob6A7qVAGH3r26_-2h"
+
+NOTIFICATION_URL = "https://desolate-stream-18620.herokuapp.com/"
+
+ASGI_APPLICATION = "ascourier.asgi.application"
+#  Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": ['YOUR_HEROKU_REDIS_URL'],
+        },
+    },
+}
+
+# Activate Django Heroku
+import django_on_heroku
+django_on_heroku.settings(locals())

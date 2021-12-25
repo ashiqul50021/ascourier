@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As Courier | Courier</title>
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/logo.png' %}">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    {% load bootstrap4 %}
+   
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+    {% include 'load_firebase.html' %}
+
+    <script>
+        const messaging = firebase.messaging();
+        messaging
+            .getToken({
+                validKey: "BF4Ra5HyZB1gm54pHTpJSYPeqNRXwGgJnc4A338di8Psw5CKEYobSmIE3QuLRTAFsmYTRH1yXGfo8FW0bwJhGTs"
+            })
+            .then((currentToken) => {
+                console.log(currentToken);
+                if (currentToken) {
+                    fetch('{% url "courier:fcm_token_update_api" %}?fcm_token=' + currentToken);
+                }
+            })
+            .catch((err) => {
+                console.log('An error occured while retrieving token. ', err);
+            })
+    </script>
+
+    <script>
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    </script>
+
+    <style>
+        #content {
+            height: calc(var(--vh, 1vh) * 100);
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <!-- nav bar  -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light shadow-sm p-3 bg-white rounded">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'img/logo.png' %}" width="" height="" alt="">
+            </a>
+            {% if not request.user.is_authenticated %}
+            <div class="d-flex">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Service</a>
+                        </li>
+                        <li class="nav-item {% if request.GET.next != '/courier/' %}active{% endif %}">
+                            <a class="nav-link" aria-current="page" href="/sign-in/?next=/customer/">Customer</a>
+                        </li>
+                        <li class="nav-item {% if request.GET.next == '/courier/' %}active{% endif %}">
+                            <a class="nav-link" aria-current="page" href="/sign-in/?next=/courier/">Courier</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sign-in">Sign In</a>
+                        </li>
+
+
+
+
+
+                    </ul>
+
+                </div>
+            </div>
+            {% else %}
+            <div class="d-flex">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Service</a>
+                        </li>
+                        {% if not request.user.is_authenticated %}
+                        <li class="nav-item {% if request.GET.next != '/customer/' %}active{% endif %}">
+                            <a class="nav-link" aria-current="page" href="/sign-in/?next=/customer/">Customer</a>
+                        </li>
+                        <li class="nav-item {% if request.GET.next == '/courier/' %}active{% endif %}">
+                            <a class="nav-link" aria-current="page" href="/sign-in/?next=/courier/">Courier</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item {% if request.GET.next != '/customer/' %}active{% endif %}">
+                            <a class="nav-link " aria-current="page" href="/customer/">Customer</a>
+                        </li>
+                        <li class="nav-item {% if request.GET.next == '/courier/' %}active{% endif %}">
+                            <a class="nav-link " aria-current="page" href="/courier/">Courier</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Contact Us</a>
+                        </li>
+
+
+
+
+
+                    </ul>
+
+                </div>
+                <form class="form-inline">
+                    <span class="mr-4">{{ request.user.get_full_name|title }}</span>
+                    <a href="/sign-out" class="btn btn-outline-primary">Sign Out</a>
+                </form>
+            </div>
+
+            {% endif %}
+        </div>
+    </nav>
+    <!-- navbar end -->
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://unpkg.com/bootoast@1.0.1/dist/bootoast.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bootoast@1.0.1/dist/bootoast.min.css">
+
+    <script>
+        function toast(message, type) {
+            bootoast.toast({
+                position: 'centerBottom',
+                message,
+                type,
+            });
+        }
+
+        {% if messages %}
+
+        {% for message in messages %}
+        toast('{{ message }}', '{{ message.tags }}');
+        {% endfor %}
+
+        {% endif %}
+    </script>
+
+
+
+
+    <script src="https://kit.fontawesome.com/f150a4a2e7.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
