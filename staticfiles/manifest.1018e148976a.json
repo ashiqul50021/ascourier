@@ -1,0 +1,14 @@
+{
+  "short_name": "As Courier",
+  "name": "Welcome to As Courier App",
+  "description": "The best place for shipping",
+  "icons": [
+    {
+      "src": "/static/img/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/courier/",
+  "display": "standalone"
+}

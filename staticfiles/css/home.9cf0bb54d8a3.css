@@ -1,0 +1,96 @@
+.button-color{
+background-color: #DF3637;
+border: none;
+color: white;
+padding: 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 0px;
+border-radius: 20px;
+
+}
+.heading{
+    margin-top: 100px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+span{
+    color: #0199B7;
+}
+h3{
+    color: #1B1F5E;
+    font-weight: 700;
+    margin-top: 2px !important;
+}
+
+.about-title{
+    color: #1B1F5E;
+    margin-top: 40px !important;
+    /* text-align: center !important; */
+}
+.about-right-title{
+    margin-top: 140px !important;
+}
+
+.services-title{
+    margin-top: 100px !important;
+}
+.fa-truck-loading{
+    color: #1B1F5E;
+}
+
+/* contact us form */
+
+.contact-form{
+    background: #fff;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 70%;
+}
+.contact-form .form-control{
+    border-radius:1rem;
+}
+.contact-image{
+    text-align: center;
+}
+.contact-image img{
+    border-radius: 6rem;
+    width: 11%;
+    margin-top: -3%;
+    transform: rotate(29deg);
+}
+.contact-form form{
+    padding: 14%;
+}
+.contact-form form .row{
+    margin-bottom: -7%;
+}
+.contact-form h3{
+    margin-bottom: 8%;
+    margin-top: -10%;
+    text-align: center;
+    color: #0062cc;
+}
+.contact-form .btnContact {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #dc3545;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.btnContactSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+}

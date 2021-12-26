@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['*',]
 # Application definition
 
 INSTALLED_APPS = [
+    'adminlte3_theme',
+    'adminlte3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     'social_django',
     'core.apps.CoreConfig',
     'channels'
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -158,6 +162,7 @@ FIREBASE_ADMIN_CREDENTIAL = os.path.join(BASE_DIR, "ascourier-81b1f-firebase-adm
 STRIPE_API_PUBLIC_KEY = "pk_test_51IOP4ZHKS9pvoGJ9ed4eg49v4CleQPOlE5oOX6fYXvcL14hz4taSI24SIfsSNoqDSUGWbckFmh7n2KOMA7JnRvUf009aV9JA3c"
 STRIPE_API_SECRET_KEY = "sk_test_51IOP4ZHKS9pvoGJ96R9TALAYJ8ynm60DZlqGkoQK44oLql05F4Yd2zzFXksuSWN2Km1IbpmSFBAbi0cPTWXNKJy900mDmSBuXq"
 GOOGLE_MAP_API_KEY = "AIzaSyBRwPydLkK60QdolCVOY6D90RPDhz5FTx4"
+# GOOGLE_MAP_API_KEY = "AIzaSyAGAW1PiDBoJSRcaY2F6vgG2npoFMBk20Q"
 
 
 PAYPAL_MODE = "sandbox"
